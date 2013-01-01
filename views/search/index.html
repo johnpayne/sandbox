@@ -1,0 +1,61 @@
+{{extend 'layout.html'}}
+
+<h3>{{=message}}</h3>
+<form action="results">
+    
+Home Ownership<br>
+<select name="homeOwnership">
+    <option value="rent">Rent</option>
+    <option value="own">Own</option>
+</select>
+<BR>
+Credit Score<BR>
+<select name="creditScoreStart" style="width:100px;">
+    <option value="800">800</option>
+    <option value="760">760</option>
+    <option value="720">720</option>
+    <option value="680">680</option>
+    <option value="640">640</option>
+    <option value="600">600</option>
+    <option value="560">560</option>
+</select>
+to
+<select name="creditScoreEnd" style="width:100px;">
+    <option value="800">800</option>
+    <option value="760">760</option>
+    <option value="720">720</option>
+    <option value="680">680</option>
+    <option value="640">640</option>
+    <option value="600">600</option>
+    <option value="560">560</option>
+</select>
+
+<br>Prior Loans<br>
+<select name="priorLoansStart" style="width:100px;">
+    {{for x in range(100):}}<option value={{=x}}>{{=x}}</option>{{pass}}
+</select>
+to
+<select name="priorLoansEnd" style="width:100px;">
+    {{for x in range(100):}}<option value={{=x}}{{if x==99:}} selected{{pass}}>{{=x}}</option>{{pass}}
+</select>
+
+<BR>
+Investor Screen Name
+<BR>
+<input type="text" name="investor" />
+<BR>
+Date Range
+<BR>
+<input type="text" style="width:90px;" id="dateMin" maxlength="10" name="dateMin">&nbsp;to
+<input type="text" style="width:90px;" id="dateMax" maxlength="10" name="dateMax">
+
+Investor Note Size<BR>
+<BR>
+<input type="text"id="slM" maxlength="6" name="slM" value="">&nbsp;to <input type="text" id="slX" maxlength="6" name="slX" value=""><span>0 to 25000</span>
+    
+
+
+<BR><input type="submit" value="Search"/>
+</form>
+
+{{=form}}

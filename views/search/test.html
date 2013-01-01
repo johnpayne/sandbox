@@ -1,0 +1,9 @@
+{{extend 'layout.html'}}
+
+What is your name?
+<form action="results">
+<input name="visitor_name" />
+<input type="submit" />
+</form>
+<P>
+{{=response.toolbar()}}

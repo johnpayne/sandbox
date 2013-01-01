@@ -1,0 +1,844 @@
+timestamp: 2012-10-17T11:47:14.871000
+CREATE TABLE auth_user(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name CHAR(128),
+    last_name CHAR(128),
+    email CHAR(512),
+    password CHAR(512),
+    registration_key CHAR(512),
+    reset_password_key CHAR(512),
+    registration_id CHAR(512)
+);
+success!
+timestamp: 2012-10-17T11:47:14.963000
+CREATE TABLE auth_group(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    role CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-10-17T11:47:14.971000
+CREATE TABLE auth_membership(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-10-17T11:47:15.033000
+CREATE TABLE auth_permission(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER REFERENCES auth_group (id) ON DELETE CASCADE,
+    name CHAR(512),
+    table_name CHAR(512),
+    record_id INTEGER
+);
+success!
+timestamp: 2012-10-17T11:47:15.054000
+CREATE TABLE auth_event(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    time_stamp TIMESTAMP,
+    client_ip CHAR(512),
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin CHAR(512),
+    description TEXT
+);
+success!
+timestamp: 2012-10-17T11:47:15.063000
+CREATE TABLE auth_cas(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on TIMESTAMP,
+    service CHAR(512),
+    ticket CHAR(512),
+    renew CHAR(1)
+);
+success!
+timestamp: 2012-11-13T16:12:46.552000
+CREATE TABLE auth_user(
+    id INT IDENTITY PRIMARY KEY,
+    first_name VARCHAR(128) NULL,
+    last_name VARCHAR(128) NULL,
+    email VARCHAR(512) NULL,
+    password VARCHAR(512) NULL,
+    registration_key VARCHAR(512) NULL,
+    reset_password_key VARCHAR(512) NULL,
+    registration_id VARCHAR(512) NULL
+);
+success!
+timestamp: 2012-11-13T16:12:46.636000
+CREATE TABLE auth_group(
+    id INT IDENTITY PRIMARY KEY,
+    role VARCHAR(512) NULL,
+    description TEXT NULL
+);
+success!
+timestamp: 2012-11-13T16:12:46.695000
+CREATE TABLE auth_membership(
+    id INT IDENTITY PRIMARY KEY,
+    user_id INT NULL, CONSTRAINT auth_membership_user_id__constraint FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id INT NULL, CONSTRAINT auth_membership_group_id__constraint FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE
+);
+success!
+timestamp: 2012-11-13T16:12:46.711000
+CREATE TABLE auth_permission(
+    id INT IDENTITY PRIMARY KEY,
+    group_id INT NULL, CONSTRAINT auth_permission_group_id__constraint FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE,
+    name VARCHAR(512) NULL,
+    table_name VARCHAR(512) NULL,
+    record_id INT NULL
+);
+success!
+timestamp: 2012-11-13T16:12:46.746000
+CREATE TABLE auth_event(
+    id INT IDENTITY PRIMARY KEY,
+    time_stamp DATETIME NULL,
+    client_ip VARCHAR(512) NULL,
+    user_id INT NULL, CONSTRAINT auth_event_user_id__constraint FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin VARCHAR(512) NULL,
+    description TEXT NULL
+);
+success!
+timestamp: 2012-11-13T16:12:46.760000
+CREATE TABLE auth_cas(
+    id INT IDENTITY PRIMARY KEY,
+    user_id INT NULL, CONSTRAINT auth_cas_user_id__constraint FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on DATETIME NULL,
+    service VARCHAR(512) NULL,
+    ticket VARCHAR(512) NULL,
+    renew BIT NULL
+);
+success!
+timestamp: 2012-11-14T21:02:19.396000
+CREATE TABLE auth_user(
+    id INT AUTO_INCREMENT NOT NULL,
+    first_name VARCHAR(128),
+    last_name VARCHAR(128),
+    email VARCHAR(255),
+    password VARCHAR(255),
+    registration_key VARCHAR(255),
+    reset_password_key VARCHAR(255),
+    registration_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-14T21:02:19.512000
+CREATE TABLE auth_group(
+    id INT AUTO_INCREMENT NOT NULL,
+    role VARCHAR(255),
+    description LONGTEXT,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-14T21:02:19.541000
+CREATE TABLE auth_membership(
+    id INT AUTO_INCREMENT NOT NULL,
+    user_id INT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    group_id INT, INDEX group_id__idx (group_id), FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-14T21:02:19.572000
+CREATE TABLE auth_permission(
+    id INT AUTO_INCREMENT NOT NULL,
+    group_id INT, INDEX group_id__idx (group_id), FOREIGN KEY (group_id) REFERENCES auth_group (id) ON DELETE CASCADE,
+    name VARCHAR(255),
+    table_name VARCHAR(255),
+    record_id INT,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-14T21:02:19.601000
+CREATE TABLE auth_event(
+    id INT AUTO_INCREMENT NOT NULL,
+    time_stamp DATETIME,
+    client_ip VARCHAR(255),
+    user_id INT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    origin VARCHAR(255),
+    description LONGTEXT,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-14T21:02:19.631000
+CREATE TABLE auth_cas(
+    id INT AUTO_INCREMENT NOT NULL,
+    user_id INT, INDEX user_id__idx (user_id), FOREIGN KEY (user_id) REFERENCES auth_user (id) ON DELETE CASCADE,
+    created_on DATETIME,
+    service VARCHAR(255),
+    ticket VARCHAR(255),
+    renew CHAR(1),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-14T21:09:19.525000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    Status VARCHAR(255),
+    CreationDate VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-14T21:10:25.557000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    Status VARCHAR(255),
+    CreationDate VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-14T21:13:42.120000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    Status VARCHAR(255),
+    CreationDate VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-14T21:18:12.361000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    Status VARCHAR(255),
+    CreationDate VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-21T11:48:00.458000
+CREATE TABLE bid2(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-21T11:48:58.436000
+CREATE TABLE bid2(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-21T11:51:15.413000
+CREATE TABLE bid2(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-21T11:51:31.593000
+CREATE TABLE bid2(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-21T11:51:32.420000
+CREATE TABLE bid2(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-21T11:52:10.314000
+CREATE TABLE bid2(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-21T11:53:54.907000
+CREATE TABLE bid2(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-25T14:24:53.212000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-25T14:24:55.778000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-25T14:29:34.831000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-25T14:30:55.597000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-25T14:38:30.150000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-25T14:55:20.224000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-25T15:03:10.087000
+CREATE TABLE contact(
+    id INT AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255),
+    phone VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-25T15:08:34.590000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    ListingKey VARCHAR(255),
+    ListingStatus VARCHAR(255),
+    MemberKey VARCHAR(255),
+    MinimumRate VARCHAR(255),
+    MinimumYield VARCHAR(255),
+    ParticipationAmount VARCHAR(255),
+    Status VARCHAR(255),
+    ModifiedDate VARCHAR(255),
+    Bids_id VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-25T15:18:49.402000
+CREATE TABLE contact2(
+    id INT AUTO_INCREMENT NOT NULL,
+    name2 VARCHAR(255),
+    phone2 VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-25T15:20:19.047000
+CREATE TABLE bid(
+    id INT AUTO_INCREMENT NOT NULL,
+    Amount VARCHAR(255),
+    CreationDate VARCHAR(255),
+    Key VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-25T15:27:50.681000
+ALTER TABLE contact2 DROP COLUMN phone2;
+success!
+timestamp: 2012-11-25T15:28:59.669000
+CREATE TABLE marketplace(
+    id INT AUTO_INCREMENT NOT NULL,
+    CreationDate VARCHAR(255),
+    GroupsCountToDate VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+timestamp: 2012-11-25T15:39:32.030000
+CREATE TABLE marketplace2(
+    id INT AUTO_INCREMENT NOT NULL,
+    CreationDate VARCHAR(255),
+    GroupsCountToDate VARCHAR(255),
+    HistoricalInterestRatesTable VARCHAR(255),
+    LoansClosedCountToDate VARCHAR(255),
+    MemberBorrowersCountToDate VARCHAR(255),
+    MemberGroupLeadersCountToDate VARCHAR(255),
+    MemberLendersCountToDate VARCHAR(255),
+    MemberRegistrationsCountToDate VARCHAR(255),
+    PrincipalClosedAmountToDate VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-25T15:51:41.008000
+CREATE TABLE marketplace3(
+    id INT AUTO_INCREMENT NOT NULL,
+    CreationDate VARCHAR(255),
+    GroupsCountToDate VARCHAR(255),
+    HistoricalInterestRatesTable VARCHAR(255),
+    LoansClosedCountToDate VARCHAR(255),
+    MemberBorrowersCountToDate VARCHAR(255),
+    MemberGroupLeadersCountToDate VARCHAR(255),
+    MemberLendersCountToDate VARCHAR(255),
+    MemberRegistrationsCountToDate VARCHAR(255),
+    PrincipalClosedAmountToDate VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-25T15:52:29.179000
+CREATE TABLE marketplace4(
+    id INT AUTO_INCREMENT NOT NULL,
+    CreationDate VARCHAR(255),
+    GroupsCountToDate VARCHAR(255),
+    HistoricalInterestRatesTable VARCHAR(255),
+    LoansClosedCountToDate VARCHAR(255),
+    MemberBorrowersCountToDate VARCHAR(255),
+    MemberGroupLeadersCountToDate VARCHAR(255),
+    MemberLendersCountToDate VARCHAR(255),
+    MemberRegistrationsCountToDate VARCHAR(255),
+    PrincipalClosedAmountToDate VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-25T15:53:07.018000
+CREATE TABLE marketplace5(
+    id INT AUTO_INCREMENT NOT NULL,
+    CreationDate VARCHAR(255),
+    GroupsCountToDate VARCHAR(255),
+    HistoricalInterestRatesTable VARCHAR(255),
+    LoansClosedCountToDate VARCHAR(255),
+    MemberBorrowersCountToDate VARCHAR(255),
+    MemberGroupLeadersCountToDate VARCHAR(255),
+    MemberLendersCountToDate VARCHAR(255),
+    MemberRegistrationsCountToDate VARCHAR(255),
+    PrincipalClosedAmountToDate VARCHAR(255),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-25T16:03:58.755000
+ALTER TABLE auth_user ADD registration_id__tmp VARCHAR(512);
+success!
+UPDATE auth_user SET registration_id__tmp=registration_id;
+success!
+ALTER TABLE auth_user DROP COLUMN registration_id;
+success!
+ALTER TABLE auth_user ADD registration_id VARCHAR(512);
+success!
+UPDATE auth_user SET registration_id=registration_id__tmp;
+success!
+ALTER TABLE auth_user DROP COLUMN registration_id__tmp;
+success!
+timestamp: 2012-11-25T16:03:59.142000
+ALTER TABLE auth_user ADD reset_password_key__tmp VARCHAR(512);
+success!
+UPDATE auth_user SET reset_password_key__tmp=reset_password_key;
+success!
+ALTER TABLE auth_user DROP COLUMN reset_password_key;
+success!
+ALTER TABLE auth_user ADD reset_password_key VARCHAR(512);
+success!
+UPDATE auth_user SET reset_password_key=reset_password_key__tmp;
+success!
+ALTER TABLE auth_user DROP COLUMN reset_password_key__tmp;
+success!
+timestamp: 2012-11-25T16:03:59.227000
+ALTER TABLE auth_user ADD password__tmp VARCHAR(512);
+success!
+UPDATE auth_user SET password__tmp=password;
+success!
+ALTER TABLE auth_user DROP COLUMN password;
+success!
+ALTER TABLE auth_user ADD password VARCHAR(512);
+success!
+UPDATE auth_user SET password=password__tmp;
+success!
+ALTER TABLE auth_user DROP COLUMN password__tmp;
+success!
+timestamp: 2012-11-25T16:03:59.311000
+ALTER TABLE auth_user ADD registration_key__tmp VARCHAR(512);
+success!
+UPDATE auth_user SET registration_key__tmp=registration_key;
+success!
+ALTER TABLE auth_user DROP COLUMN registration_key;
+success!
+ALTER TABLE auth_user ADD registration_key VARCHAR(512);
+success!
+UPDATE auth_user SET registration_key=registration_key__tmp;
+success!
+ALTER TABLE auth_user DROP COLUMN registration_key__tmp;
+success!
+timestamp: 2012-11-25T16:03:59.408000
+ALTER TABLE auth_user ADD email__tmp VARCHAR(512);
+success!
+UPDATE auth_user SET email__tmp=email;
+success!
+ALTER TABLE auth_user DROP COLUMN email;
+success!
+ALTER TABLE auth_user ADD email VARCHAR(512);
+success!
+UPDATE auth_user SET email=email__tmp;
+success!
+ALTER TABLE auth_user DROP COLUMN email__tmp;
+success!
+timestamp: 2012-11-25T16:03:59.529000
+ALTER TABLE auth_group ADD role__tmp VARCHAR(512);
+success!
+UPDATE auth_group SET role__tmp=role;
+success!
+ALTER TABLE auth_group DROP COLUMN role;
+success!
+ALTER TABLE auth_group ADD role VARCHAR(512);
+success!
+UPDATE auth_group SET role=role__tmp;
+success!
+ALTER TABLE auth_group DROP COLUMN role__tmp;
+success!
+timestamp: 2012-11-25T16:03:59.615000
+ALTER TABLE auth_permission ADD table_name__tmp VARCHAR(512);
+success!
+UPDATE auth_permission SET table_name__tmp=table_name;
+success!
+ALTER TABLE auth_permission DROP COLUMN table_name;
+success!
+ALTER TABLE auth_permission ADD table_name VARCHAR(512);
+success!
+UPDATE auth_permission SET table_name=table_name__tmp;
+success!
+ALTER TABLE auth_permission DROP COLUMN table_name__tmp;
+success!
+timestamp: 2012-11-25T16:03:59.689000
+ALTER TABLE auth_permission ADD name__tmp VARCHAR(512);
+success!
+UPDATE auth_permission SET name__tmp=name;
+success!
+ALTER TABLE auth_permission DROP COLUMN name;
+success!
+ALTER TABLE auth_permission ADD name VARCHAR(512);
+success!
+UPDATE auth_permission SET name=name__tmp;
+success!
+ALTER TABLE auth_permission DROP COLUMN name__tmp;
+success!
+timestamp: 2012-11-25T16:03:59.777000
+ALTER TABLE auth_event ADD origin__tmp VARCHAR(512);
+success!
+UPDATE auth_event SET origin__tmp=origin;
+success!
+ALTER TABLE auth_event DROP COLUMN origin;
+success!
+ALTER TABLE auth_event ADD origin VARCHAR(512);
+success!
+UPDATE auth_event SET origin=origin__tmp;
+success!
+ALTER TABLE auth_event DROP COLUMN origin__tmp;
+success!
+timestamp: 2012-11-25T16:03:59.841000
+ALTER TABLE auth_event ADD client_ip__tmp VARCHAR(512);
+success!
+UPDATE auth_event SET client_ip__tmp=client_ip;
+success!
+ALTER TABLE auth_event DROP COLUMN client_ip;
+success!
+ALTER TABLE auth_event ADD client_ip VARCHAR(512);
+success!
+UPDATE auth_event SET client_ip=client_ip__tmp;
+success!
+ALTER TABLE auth_event DROP COLUMN client_ip__tmp;
+success!
+timestamp: 2012-11-25T16:03:59.937000
+ALTER TABLE auth_cas ADD service__tmp VARCHAR(512);
+success!
+UPDATE auth_cas SET service__tmp=service;
+success!
+ALTER TABLE auth_cas DROP COLUMN service;
+success!
+ALTER TABLE auth_cas ADD service VARCHAR(512);
+success!
+UPDATE auth_cas SET service=service__tmp;
+success!
+ALTER TABLE auth_cas DROP COLUMN service__tmp;
+success!
+timestamp: 2012-11-25T16:04:00.020000
+ALTER TABLE auth_cas ADD ticket__tmp VARCHAR(512);
+success!
+UPDATE auth_cas SET ticket__tmp=ticket;
+success!
+ALTER TABLE auth_cas DROP COLUMN ticket;
+success!
+ALTER TABLE auth_cas ADD ticket VARCHAR(512);
+success!
+UPDATE auth_cas SET ticket=ticket__tmp;
+success!
+ALTER TABLE auth_cas DROP COLUMN ticket__tmp;
+success!
+timestamp: 2012-11-25T16:04:00.122000
+ALTER TABLE contact ADD phone__tmp VARCHAR(512);
+success!
+UPDATE contact SET phone__tmp=phone;
+success!
+ALTER TABLE contact DROP COLUMN phone;
+success!
+ALTER TABLE contact ADD phone VARCHAR(512);
+success!
+UPDATE contact SET phone=phone__tmp;
+success!
+ALTER TABLE contact DROP COLUMN phone__tmp;
+success!
+timestamp: 2012-11-25T16:04:00.219000
+ALTER TABLE contact ADD name__tmp VARCHAR(512);
+success!
+UPDATE contact SET name__tmp=name;
+success!
+ALTER TABLE contact DROP COLUMN name;
+success!
+ALTER TABLE contact ADD name VARCHAR(512);
+success!
+UPDATE contact SET name=name__tmp;
+success!
+ALTER TABLE contact DROP COLUMN name__tmp;
+success!
+timestamp: 2012-11-25T16:04:00.316000
+CREATE TABLE marketplace6(
+    id INT AUTO_INCREMENT NOT NULL,
+    CreationDate VARCHAR(512),
+    GroupsCountToDate VARCHAR(512),
+    HistoricalInterestRatesTable VARCHAR(8000),
+    LoansClosedCountToDate VARCHAR(512),
+    MemberBorrowersCountToDate VARCHAR(512),
+    MemberGroupLeadersCountToDate VARCHAR(512),
+    MemberLendersCountToDate VARCHAR(512),
+    MemberRegistrationsCountToDate VARCHAR(512),
+    PrincipalClosedAmountToDate VARCHAR(512),
+    PRIMARY KEY(id)
+) ENGINE=InnoDB CHARACTER SET utf8;
+success!
+timestamp: 2012-11-25T16:16:32.183000
+ALTER TABLE marketplace6 ADD creationdate__tmp DATETIME;
+success!
+UPDATE marketplace6 SET creationdate__tmp=creationdate;
+success!
+ALTER TABLE marketplace6 DROP COLUMN creationdate;
+success!
+ALTER TABLE marketplace6 ADD creationdate DATETIME;
+success!
+UPDATE marketplace6 SET creationdate=creationdate__tmp;
+success!
+ALTER TABLE marketplace6 DROP COLUMN creationdate__tmp;
+success!
+timestamp: 2012-11-25T16:20:40.748000
+ALTER TABLE marketplace6 ADD memberlenderscounttodate__tmp NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET memberlenderscounttodate__tmp=memberlenderscounttodate;
+success!
+ALTER TABLE marketplace6 DROP COLUMN memberlenderscounttodate;
+success!
+ALTER TABLE marketplace6 ADD memberlenderscounttodate NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET memberlenderscounttodate=memberlenderscounttodate__tmp;
+success!
+ALTER TABLE marketplace6 DROP COLUMN memberlenderscounttodate__tmp;
+success!
+timestamp: 2012-11-25T16:20:41.187000
+ALTER TABLE marketplace6 ADD membergroupleaderscounttodate__tmp NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET membergroupleaderscounttodate__tmp=membergroupleaderscounttodate;
+success!
+ALTER TABLE marketplace6 DROP COLUMN membergroupleaderscounttodate;
+success!
+ALTER TABLE marketplace6 ADD membergroupleaderscounttodate NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET membergroupleaderscounttodate=membergroupleaderscounttodate__tmp;
+success!
+ALTER TABLE marketplace6 DROP COLUMN membergroupleaderscounttodate__tmp;
+success!
+timestamp: 2012-11-25T16:20:41.321000
+ALTER TABLE marketplace6 ADD groupscounttodate__tmp NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET groupscounttodate__tmp=groupscounttodate;
+success!
+ALTER TABLE marketplace6 DROP COLUMN groupscounttodate;
+success!
+ALTER TABLE marketplace6 ADD groupscounttodate NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET groupscounttodate=groupscounttodate__tmp;
+success!
+ALTER TABLE marketplace6 DROP COLUMN groupscounttodate__tmp;
+success!
+timestamp: 2012-11-25T16:20:41.435000
+ALTER TABLE marketplace6 ADD loansclosedcounttodate__tmp NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET loansclosedcounttodate__tmp=loansclosedcounttodate;
+success!
+ALTER TABLE marketplace6 DROP COLUMN loansclosedcounttodate;
+success!
+ALTER TABLE marketplace6 ADD loansclosedcounttodate NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET loansclosedcounttodate=loansclosedcounttodate__tmp;
+success!
+ALTER TABLE marketplace6 DROP COLUMN loansclosedcounttodate__tmp;
+success!
+timestamp: 2012-11-25T16:20:41.561000
+ALTER TABLE marketplace6 ADD principalclosedamounttodate__tmp NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET principalclosedamounttodate__tmp=principalclosedamounttodate;
+success!
+ALTER TABLE marketplace6 DROP COLUMN principalclosedamounttodate;
+success!
+ALTER TABLE marketplace6 ADD principalclosedamounttodate NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET principalclosedamounttodate=principalclosedamounttodate__tmp;
+success!
+ALTER TABLE marketplace6 DROP COLUMN principalclosedamounttodate__tmp;
+success!
+timestamp: 2012-11-25T16:20:41.671000
+ALTER TABLE marketplace6 ADD memberregistrationscounttodate__tmp NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET memberregistrationscounttodate__tmp=memberregistrationscounttodate;
+success!
+ALTER TABLE marketplace6 DROP COLUMN memberregistrationscounttodate;
+success!
+ALTER TABLE marketplace6 ADD memberregistrationscounttodate NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET memberregistrationscounttodate=memberregistrationscounttodate__tmp;
+success!
+ALTER TABLE marketplace6 DROP COLUMN memberregistrationscounttodate__tmp;
+success!
+timestamp: 2012-11-25T16:20:41.828000
+ALTER TABLE marketplace6 ADD memberborrowerscounttodate__tmp NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET memberborrowerscounttodate__tmp=memberborrowerscounttodate;
+success!
+ALTER TABLE marketplace6 DROP COLUMN memberborrowerscounttodate;
+success!
+ALTER TABLE marketplace6 ADD memberborrowerscounttodate NUMERIC(28,10);
+success!
+UPDATE marketplace6 SET memberborrowerscounttodate=memberborrowerscounttodate__tmp;
+success!
+ALTER TABLE marketplace6 DROP COLUMN memberborrowerscounttodate__tmp;
+success!
